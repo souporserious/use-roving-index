@@ -1,0 +1,16 @@
+# Mac files
+.DS_Store
+
+# NPM
+.npm
+node_modules/
+npm-debug.log*
+
+# Yarn
+.yarn-integrity
+yarn-debug.log*
+yarn-error.log*
+
+# General
+coverage
+dist
