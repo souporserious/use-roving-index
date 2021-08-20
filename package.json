@@ -1,7 +1,7 @@
 {
   "name": "use-roving-index",
   "version": "1.0.0",
-  "description": "Easily manage an active index that optionally wraps.",
+  "description": "Easily manage an active index that needs to be contained or wrap.",
   "author": "Travis Arnold",
   "license": "MIT",
   "source": "index.js",

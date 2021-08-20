@@ -18,6 +18,35 @@ test('index stays contained', () => {
   expect(result.current.activeIndex).toBe(0)
 })
 
+test('index moves forward', () => {
+  const { result } = renderHook(() =>
+    useRovingIndex({
+      maxIndex: 5,
+    })
+  )
+
+  act(() => {
+    result.current.moveForward()
+  })
+
+  expect(result.current.activeIndex).toBe(1)
+})
+
+test('index moves backward', () => {
+  const { result } = renderHook(() =>
+    useRovingIndex({
+      maxIndex: 5,
+      wrap: true,
+    })
+  )
+
+  act(() => {
+    result.current.moveBackward()
+  })
+
+  expect(result.current.activeIndex).toBe(4)
+})
+
 test('index wraps properly', () => {
   const { result } = renderHook(() =>
     useRovingIndex({
