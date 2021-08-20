@@ -10,8 +10,12 @@ import { useCallback, useState } from 'react'
  *   moveActiveIndex,
  * } = useRovingIndex({ maxIndex: items.length - 1 })
  */
-export function useRovingIndex({ maxIndex, defaultIndex = 0, wrap = false }) {
-  const [activeIndex, setLocalActiveIndex] = useState(defaultIndex)
+export function useRovingIndex({
+  maxIndex,
+  defaultActiveIndex = 0,
+  wrap = false,
+}) {
+  const [activeIndex, setLocalActiveIndex] = useState(defaultActiveIndex)
   const getWrappedIndex = useCallback(
     (nextIndex) => {
       return wrap
