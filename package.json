@@ -1,6 +1,6 @@
 {
   "name": "use-roving-index",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Easily manage an active index that needs to be contained or wrap.",
   "author": "Travis Arnold",
   "license": "MIT",
