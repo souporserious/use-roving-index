@@ -24,7 +24,9 @@ function App() {
   const {
     activeIndex,
     moveActiveIndex,
+    moveBackward,
     moveBackwardDisabled,
+    moveForward,
     moveForwardDisabled,
   } = useRovingIndex({ maxIndex: items.length - 1 })
   return (
@@ -32,14 +34,15 @@ function App() {
       <ul
         tabIndex={0}
         onKeyDown={(event) => {
+          const multiplier = event.shiftKey ? 3 : 1
           switch (event.key) {
             case 'ArrowUp':
             case 'ArrowLeft':
-              moveActiveIndex(-1)
+              moveActiveIndex(-1 * multiplier)
               break
             case 'ArrowDown':
             case 'ArrowRight':
-              moveActiveIndex(1)
+              moveActiveIndex(1 * multiplier)
               break
           }
         }}
@@ -53,13 +56,10 @@ function App() {
           </li>
         ))}
       </ul>
-      <button
-        disabled={moveBackwardDisabled}
-        onClick={() => moveActiveIndex(-1)}
-      >
+      <button disabled={moveBackwardDisabled} onClick={moveBackward}>
         Previous
       </button>
-      <button disabled={moveForwardDisabled} onClick={() => moveActiveIndex(1)}>
+      <button disabled={moveForwardDisabled} onClick={moveForward}>
         Next
       </button>
     </>
