@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks'
-import { useRovingIndex } from './index'
+import { useRovingIndex } from './dist'
 
 test('index contains by default', () => {
   const maxIndex = 3

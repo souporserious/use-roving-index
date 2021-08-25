@@ -5,14 +5,14 @@
   "author": "Travis Arnold",
   "license": "MIT",
   "source": "index.js",
-  "types": "types.d.ts",
+  "types": "index.d.ts",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "unpkg": "dist/index.umd.js",
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
-    "test": "jest --watchAll",
+    "build": "microbundle -i index.ts",
+    "dev": "microbundle -i index.ts watch",
+    "test": "yarn build; jest --watchAll",
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
