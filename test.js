@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import { useRovingIndex } from './index'
 
-test('index stays contained', () => {
+test('index contains by default', () => {
   const maxIndex = 3
   const { result } = renderHook(() => useRovingIndex({ maxIndex }))
 
@@ -16,6 +16,35 @@ test('index stays contained', () => {
   })
 
   expect(result.current.activeIndex).toBe(0)
+})
+
+test('index overflows properly', () => {
+  const { result } = renderHook(() =>
+    useRovingIndex({
+      contain: false,
+    })
+  )
+
+  act(() => {
+    result.current.moveActiveIndex(-3)
+  })
+
+  expect(result.current.activeIndex).toBe(-3)
+})
+
+test('index wraps properly', () => {
+  const { result } = renderHook(() =>
+    useRovingIndex({
+      maxIndex: 5,
+      wrap: true,
+    })
+  )
+
+  act(() => {
+    result.current.moveActiveIndex(-3)
+  })
+
+  expect(result.current.activeIndex).toBe(2)
 })
 
 test('index moves forward', () => {
@@ -45,21 +74,6 @@ test('index moves backward', () => {
   })
 
   expect(result.current.activeIndex).toBe(4)
-})
-
-test('index wraps properly', () => {
-  const { result } = renderHook(() =>
-    useRovingIndex({
-      maxIndex: 5,
-      wrap: true,
-    })
-  )
-
-  act(() => {
-    result.current.moveActiveIndex(-3)
-  })
-
-  expect(result.current.activeIndex).toBe(2)
 })
 
 test('disables moving backwards', () => {

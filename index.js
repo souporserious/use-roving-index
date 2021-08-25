@@ -11,36 +11,37 @@ import { useCallback, useState } from 'react'
  * } = useRovingIndex({ maxIndex: items.length - 1 })
  */
 export function useRovingIndex({
-  maxIndex,
-  defaultActiveIndex = 0,
+  contain = true,
+  defaultIndex = 0,
+  maxIndex = Infinity,
   wrap = false,
 }) {
-  const [activeIndex, setLocalActiveIndex] = useState(defaultActiveIndex)
-  const getWrappedIndex = useCallback(
+  const [activeIndex, setLocalActiveIndex] = useState(defaultIndex)
+  const getNextIndex = useCallback(
     (nextIndex) => {
-      return wrap
-        ? ((nextIndex % maxIndex) + maxIndex) % maxIndex
-        : nextIndex > maxIndex
-        ? maxIndex
-        : nextIndex < 0
-        ? 0
-        : nextIndex
+      if (wrap) {
+        return ((nextIndex % maxIndex) + maxIndex) % maxIndex
+      }
+      if (contain) {
+        return nextIndex > maxIndex ? maxIndex : nextIndex < 0 ? 0 : nextIndex
+      }
+      return nextIndex
     },
     [maxIndex, wrap]
   )
   const moveActiveIndex = useCallback(
     (amountToMove) => {
       setLocalActiveIndex((currentIndex) =>
-        getWrappedIndex(currentIndex + amountToMove)
+        getNextIndex(currentIndex + amountToMove)
       )
     },
-    [getWrappedIndex]
+    [getNextIndex]
   )
   const setActiveIndex = useCallback(
     (nextIndex) => {
-      setLocalActiveIndex(getWrappedIndex(nextIndex))
+      setLocalActiveIndex(getNextIndex(nextIndex))
     },
-    [getWrappedIndex]
+    [getNextIndex]
   )
   const moveBackward = useCallback(() => moveActiveIndex(-1), [moveActiveIndex])
   const moveForward = useCallback(() => moveActiveIndex(1), [moveActiveIndex])

@@ -12,7 +12,8 @@
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

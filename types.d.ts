@@ -1,10 +1,13 @@
 declare module 'use-roving-index' {
   export function useRovingIndex(options: {
-    /** The max index used to know when to contain or wrap. */
-    maxIndex: number
+    /** The default index used when first mounting. */
+    defaultIndex?: number
 
-    /** The default active index used when first mounting. */
-    defaultActiveIndex?: number
+    /** The max index used to know when to contain or wrap. */
+    contain?: boolean
+
+    /** The max index used to know when to contain or wrap. */
+    maxIndex?: number
 
     /** Wrap index when navigating outside the first or last index. */
     wrap?: boolean
@@ -12,10 +15,10 @@ declare module 'use-roving-index' {
     /** The active index. */
     activeIndex: number
 
-    /** Whether the active index can be moved backwards. */
+    /** Whether the active index can be moved backward. */
     moveBackwardDisabled: boolean
 
-    /** Whether the active index can be moved forwards. */
+    /** Whether the active index can be moved forward. */
     moveForwardDisabled: boolean
 
     /** Move the index backwards. */
