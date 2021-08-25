@@ -1,7 +1,15 @@
 {
   "name": "use-roving-index",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Easily manage an active index that needs to be contained or wrap.",
+  "keywords": [
+    "active index",
+    "roving index",
+    "manage index",
+    "index hook",
+    "index react",
+    "index"
+  ],
   "author": "Travis Arnold",
   "license": "MIT",
   "source": "index.js",
