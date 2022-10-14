@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 /**
  * Manage an active index that needs to be contained or wrap.
@@ -30,6 +30,9 @@ export function useRovingIndex({
   /** The active index. */
   activeIndex: number
 
+  /** The previously set index. */
+  previousIndex: null | number
+
   /** Whether the active index can be moved backward. */
   moveBackwardDisabled: boolean
 
@@ -49,6 +52,7 @@ export function useRovingIndex({
   setActiveIndex: (nextIndex: number) => void
 } {
   const [activeIndex, setLocalActiveIndex] = useState(defaultIndex)
+  const previousIndex = useRef<number | null>(null)
   const getNextIndex = useCallback(
     (incomingIndex) => {
       const exceedsMax = incomingIndex > maxIndex
@@ -67,15 +71,19 @@ export function useRovingIndex({
   )
   const moveActiveIndex = useCallback(
     (amountToMove) => {
-      setLocalActiveIndex((currentIndex) =>
-        getNextIndex(currentIndex + amountToMove)
-      )
+      setLocalActiveIndex((currentIndex) => {
+        previousIndex.current = currentIndex
+        return getNextIndex(currentIndex + amountToMove)
+      })
     },
     [getNextIndex]
   )
   const setActiveIndex = useCallback(
     (nextIndex) => {
-      setLocalActiveIndex(getNextIndex(nextIndex))
+      setLocalActiveIndex((currentIndex) => {
+        previousIndex.current = currentIndex
+        return getNextIndex(nextIndex)
+      })
     },
     [getNextIndex]
   )
@@ -90,5 +98,6 @@ export function useRovingIndex({
     moveForward,
     moveBackwardDisabled: activeIndex <= 0,
     moveForwardDisabled: activeIndex >= maxIndex,
+    previousIndex: previousIndex.current,
   }
 }
