@@ -19,11 +19,7 @@ test('index contains by default', () => {
 })
 
 test('index overflows properly', () => {
-  const { result } = renderHook(() =>
-    useRovingIndex({
-      contain: false,
-    })
-  )
+  const { result } = renderHook(() => useRovingIndex({ type: 'none' }))
 
   act(() => {
     result.current.moveActiveIndex(-3)
@@ -34,10 +30,7 @@ test('index overflows properly', () => {
 
 test('index wraps properly', () => {
   const { result } = renderHook(() =>
-    useRovingIndex({
-      maxIndex: 5,
-      wrap: true,
-    })
+    useRovingIndex({ maxIndex: 5, type: 'wrap' })
   )
 
   act(() => {
@@ -48,11 +41,7 @@ test('index wraps properly', () => {
 })
 
 test('index moves forward', () => {
-  const { result } = renderHook(() =>
-    useRovingIndex({
-      maxIndex: 5,
-    })
-  )
+  const { result } = renderHook(() => useRovingIndex({ maxIndex: 5 }))
 
   act(() => {
     result.current.moveForward()
@@ -63,10 +52,7 @@ test('index moves forward', () => {
 
 test('index moves backward', () => {
   const { result } = renderHook(() =>
-    useRovingIndex({
-      maxIndex: 5,
-      wrap: true,
-    })
+    useRovingIndex({ maxIndex: 5, type: 'wrap' })
   )
 
   act(() => {

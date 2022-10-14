@@ -11,22 +11,21 @@ import { useCallback, useState } from 'react'
  * } = useRovingIndex({ maxIndex: items.length - 1 })
  */
 export function useRovingIndex({
-  contain = true,
   defaultIndex = 0,
   maxIndex = Infinity,
-  wrap = false,
+  type = 'contain',
 }: {
   /** The default index used when first mounting. */
   defaultIndex?: number
 
-  /** The max index used to know when to contain or wrap. */
+  /** Whether or not to contain the index. */
   contain?: boolean
 
   /** The max index used to know when to contain or wrap. */
   maxIndex?: number
 
-  /** Wrap index when navigating outside the first or last index. */
-  wrap?: boolean
+  /** How to handle navigation when exceeding minimum and maximum indexes. */
+  type?: 'contain' | 'wrap' | 'none'
 }): {
   /** The active index. */
   activeIndex: number
@@ -51,16 +50,20 @@ export function useRovingIndex({
 } {
   const [activeIndex, setLocalActiveIndex] = useState(defaultIndex)
   const getNextIndex = useCallback(
-    (nextIndex) => {
-      if (wrap) {
-        return ((nextIndex % maxIndex) + maxIndex) % maxIndex
+    (incomingIndex) => {
+      const exceedsMax = incomingIndex > maxIndex
+      const exceedsMin = incomingIndex < 0
+
+      switch (type) {
+        case 'contain':
+          return exceedsMax ? maxIndex : exceedsMin ? 0 : incomingIndex
+        case 'wrap':
+          return exceedsMax ? 0 : exceedsMin ? maxIndex : incomingIndex
+        default:
+          return incomingIndex
       }
-      if (contain) {
-        return nextIndex > maxIndex ? maxIndex : nextIndex < 0 ? 0 : nextIndex
-      }
-      return nextIndex
     },
-    [maxIndex, wrap]
+    [maxIndex, type]
   )
   const moveActiveIndex = useCallback(
     (amountToMove) => {
@@ -78,6 +81,7 @@ export function useRovingIndex({
   )
   const moveBackward = useCallback(() => moveActiveIndex(-1), [moveActiveIndex])
   const moveForward = useCallback(() => moveActiveIndex(1), [moveActiveIndex])
+
   return {
     activeIndex,
     moveActiveIndex,
