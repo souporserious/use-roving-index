@@ -1,6 +1,6 @@
 # ⌨️ use-roving-index
 
-Easily manage an active index that needs to be contained or wrap.
+Manage an active index that needs to be contained or wrapped.
 
 ## Install
 

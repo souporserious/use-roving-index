@@ -1,7 +1,7 @@
 {
   "name": "use-roving-index",
   "version": "2.0.0",
-  "description": "Easily manage an active index that needs to be contained or wrap.",
+  "description": "Manage an active index that needs to be contained or wrapped.",
   "keywords": [
     "active index",
     "roving index",
