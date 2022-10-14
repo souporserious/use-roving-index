@@ -85,3 +85,21 @@ test('disables moving forwards', () => {
 
   expect(result.current.moveForwardDisabled).toBe(true)
 })
+
+test('tracks previous index', () => {
+  const { result } = renderHook(() =>
+    useRovingIndex({ defaultIndex: 5, maxIndex: 5 })
+  )
+
+  act(() => {
+    result.current.moveForward()
+  })
+
+  expect(result.current.previousIndex).toBe(null)
+
+  act(() => {
+    result.current.moveBackward()
+  })
+
+  expect(result.current.previousIndex).toBe(5)
+})
