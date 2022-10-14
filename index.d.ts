@@ -8,18 +8,20 @@
  *   moveActiveIndex,
  * } = useRovingIndex({ maxIndex: items.length - 1 })
  */
-export declare function useRovingIndex({ contain, defaultIndex, maxIndex, wrap, }: {
+export declare function useRovingIndex({ defaultIndex, maxIndex, type, }: {
     /** The default index used when first mounting. */
     defaultIndex?: number;
-    /** The max index used to know when to contain or wrap. */
+    /** Whether or not to contain the index. */
     contain?: boolean;
     /** The max index used to know when to contain or wrap. */
     maxIndex?: number;
-    /** Wrap index when navigating outside the first or last index. */
-    wrap?: boolean;
+    /** How to handle navigation when exceeding minimum and maximum indexes. */
+    type?: 'contain' | 'wrap' | 'none';
 }): {
     /** The active index. */
     activeIndex: number;
+    /** The previously set index. */
+    previousIndex: null | number;
     /** Whether the active index can be moved backward. */
     moveBackwardDisabled: boolean;
     /** Whether the active index can be moved forward. */

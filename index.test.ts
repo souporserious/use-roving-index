@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks'
+import { renderHook, act } from '@testing-library/react'
 import { useRovingIndex } from './dist'
 
 test('index contains by default', () => {
@@ -37,7 +37,7 @@ test('index wraps properly', () => {
     result.current.moveActiveIndex(-3)
   })
 
-  expect(result.current.activeIndex).toBe(2)
+  expect(result.current.activeIndex).toBe(5)
 })
 
 test('index moves forward', () => {
@@ -59,7 +59,7 @@ test('index moves backward', () => {
     result.current.moveBackward()
   })
 
-  expect(result.current.activeIndex).toBe(4)
+  expect(result.current.activeIndex).toBe(5)
 })
 
 test('disables moving backwards', () => {
